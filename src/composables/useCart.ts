@@ -1,5 +1,5 @@
 import { computed } from "@vue/reactivity"
-import {nextTick, ref, watch} from "vue"
+import {nextTick, ref} from "vue"
 
 const cart = ref({
   items: [] as CartItem[],

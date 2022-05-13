@@ -17,7 +17,7 @@ const { cart, removeFromCart, isCartEmpty,reduceCart } = useCart();
           <h3>{{ item.name }} ¥ {{ item.price }}</h3>
           <el-input-number
             v-model="item.quantity"
-            @update:modelValue="(quantity: number,e) => reduceCart(item, quantity)"
+            @update:modelValue="(quantity: number) => reduceCart(item, quantity)"
           ></el-input-number>
           <el-button @click="removeFromCart(item)">Remove</el-button>
         </div>
