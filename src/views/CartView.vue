@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import { useCart } from "@/composables/useCart";
 
-const { cart, updateQuantity, removeFromCart, isCartEmpty } = useCart();
+
+const { cart, removeFromCart, isCartEmpty,reduceCart } = useCart();
+
 </script>
 <template>
   <div class="about">
@@ -14,8 +16,8 @@ const { cart, updateQuantity, removeFromCart, isCartEmpty } = useCart();
         <div>
           <h3>{{ item.name }} ¥ {{ item.price }}</h3>
           <el-input-number
-            :modelValue="item.quantity"
-            @update:modelValue="(quantity: number) => updateQuantity(item, quantity)"
+            v-model="item.quantity"
+            @update:modelValue="(quantity: number,e) => reduceCart(item, quantity)"
           ></el-input-number>
           <el-button @click="removeFromCart(item)">Remove</el-button>
         </div>

@@ -1,12 +1,11 @@
 import { computed } from "@vue/reactivity"
-import { ref } from "vue"
+import {nextTick, ref, watch} from "vue"
 
 const cart = ref({
   items: [] as CartItem[],
 })
 
 export const useCart = () => {
-
   const addToCart = async (product: Product) => {
     const item = cart.value.items.find(item => item.productId === product.id)
     if(item) {
@@ -19,12 +18,24 @@ export const useCart = () => {
         price: product.price,
       })
     }
-    
+
   }
 
-  const updateQuantity = async (item: CartItem, quantity: number) => {
-    item.quantity = quantity
+  const updateQuantity =  async (item: CartItem, quantity: number) => {
+        item.quantity = quantity
   }
+
+  const reduceCart =  async (item: CartItem, quantity: number) => {
+    if (quantity <= 0){
+      if (confirm('是否要移除购物车')) {
+        removeFromCart(item)
+      }else {
+        await nextTick()
+        item.quantity = 1
+      }
+    }
+  }
+
 
   const removeFromCart = async (item: CartItem) => {
     const index = cart.value.items.findIndex(cartItem => cartItem.productId === item.productId)
@@ -50,5 +61,6 @@ export const useCart = () => {
     updateQuantity,
     removeFromCart,
     isCartEmpty,
+    reduceCart
   }
 }
