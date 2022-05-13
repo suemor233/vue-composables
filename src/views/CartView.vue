@@ -12,7 +12,7 @@ const { cart, removeFromCart, isCartEmpty,reduceCart } = useCart();
       <p>Your cart is empty.</p>
     </div>
     <ul v-if="!isCartEmpty">
-      <li v-for="item in cart.items">
+      <li v-for="item in cart.items" :key="item.productId">
         <div>
           <h3>{{ item.name }} ¥ {{ item.price }}</h3>
           <el-input-number
