@@ -31,7 +31,7 @@ export const useCart = () => {
         removeFromCart(item)
       }else {
         await nextTick()
-        item.quantity = 1
+        updateQuantity(item,item.quantity + 1)
       }
     }
   }
